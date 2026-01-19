@@ -1,0 +1,3 @@
+[submodule "mentsuyu"]
+	path = mentsuyu
+	url = https://github.com/tsukuba-mas/mentsuyu.git
