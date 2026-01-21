@@ -2,6 +2,7 @@ import networkx as nx
 import pandas as pd
 from typing import Callable
 from ecmeasure.homogeneity import max_opinion_distance, max_belief_distance
+from ecmeasure.utils import is_decreasing
 from functools import cache
 
 @cache
@@ -9,13 +10,6 @@ def nx_scc_wrapper(G: nx.DiGraph) -> list[set[int]]:
     ## Wrapper of `nx.strongly_connected_components`.
     ## This function is memoized.
     return list(nx.strongly_connected_components(G))
-
-def is_decreasing(xs: list[float]) -> bool:
-    ## Returns `True` if xs[0] >= xs[1] >= ... >= xs[-1]; returns `False` otherwise.
-    for i in range(1, len(xs)):
-        if xs[i-1] < xs[i]:
-            return False
-    return True
 
 def is_opinion_getting_closer(
     community: set[int], 
