@@ -1,7 +1,7 @@
 import networkx as nx
 import pandas as pd
 from typing import Callable
-from homogeneity import max_opinion_distance, max_belief_distance
+from ecmeasure.homogeneity import max_opinion_distance, max_belief_distance
 from functools import cache
 
 @cache

@@ -1,9 +1,9 @@
 import pytest
 
-from ecmeasures import eo_raw, eb_raw
-from homogeneity import max_opinion_distance, max_belief_distance
-from segregation import ratio_edges_to_outside
-from reinforcement import is_opinion_getting_closer, is_belief_getting_closer, nx_scc_wrapper
+from ecmeasure.ecmeasures import eo_raw, eb_raw
+from ecmeasure.homogeneity import max_opinion_distance, max_belief_distance
+from ecmeasure.segregation import ratio_edges_to_outside
+from ecmeasure.reinforcement import is_opinion_getting_closer, is_belief_getting_closer, nx_scc_wrapper
 from common import *
 
 def test_eo_raw():

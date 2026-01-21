@@ -1,5 +1,5 @@
 from typing import Callable
-from utils import hamming
+from ecmeasure.utils import hamming
 
 def max_opinion_distance(
     community: set[int], 

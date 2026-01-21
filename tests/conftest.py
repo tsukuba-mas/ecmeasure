@@ -1,5 +1,5 @@
 # General configuration for the test programs
 import sys
 from pathlib import Path
-root_dir = Path(__file__).resolve().parent.parent
+root_dir = Path(__file__).resolve().parent.parent.parent
 sys.path.append(str(root_dir))

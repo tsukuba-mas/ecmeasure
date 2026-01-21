@@ -1,6 +1,6 @@
-from homogeneity import max_opinion_distance, max_belief_distance
-from segregation import ratio_edges_to_outside
-from reinforcement import is_opinion_getting_closer, is_belief_getting_closer, nx_scc_wrapper
+from ecmeasure.homogeneity import max_opinion_distance, max_belief_distance
+from ecmeasure.segregation import ratio_edges_to_outside
+from ecmeasure.reinforcement import is_opinion_getting_closer, is_belief_getting_closer, nx_scc_wrapper
 import networkx as nx
 import pandas as pd
 from typing import Callable, NamedTuple

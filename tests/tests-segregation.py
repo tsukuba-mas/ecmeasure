@@ -1,6 +1,6 @@
 import pytest
 
-from segregation import ratio_edges_to_outside
+from ecmeasure.segregation import ratio_edges_to_outside
 import networkx as nx
 
 def test_ratio_edges_to_outside():

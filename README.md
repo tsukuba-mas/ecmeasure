@@ -24,6 +24,16 @@ For their interface, see the source code.
 If you want to customize details (e.g., use the drastic distance instead of the Hamming distance), use `eo_raw` or `eb_raw`.
 These functions are customizable version of `eo` and `eb`.
 
+## How to use
+Clone this repository to somewhere (`ecmeasure` for instance) and import them by:
+```py
+from ecmeasure.ecmeasures import eo, eb
+```
+if you want to use `eo` and `eb`.
+It is recommended to fix the hash or use `git submodule` for reproducibility.
+
+It is not planned to make this library installable using package managers like well-known libraries (e.g., numpy).
+
 ## Tests
 See codes under the `tests` directory.
 Tests can be executed through:
