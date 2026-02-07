@@ -32,7 +32,7 @@ def test_eo_raw():
         get_communities=nx_scc_wrapper,
         verbose=True,
     )
-    assert info.eclist == [{1, 2}]
+    assert info.ec == [{1, 2}]
 
 def test_eb_raw():
     assert eb_raw(
@@ -59,6 +59,6 @@ def test_eb_raw():
         get_communities=nx_scc_wrapper,
         verbose=True,
     )
-    assert info.eclist == [{1, 2}, {3, 4}]
+    assert info.ec == [{1, 2}, {3, 4}]
     
 

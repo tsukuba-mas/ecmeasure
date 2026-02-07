@@ -20,29 +20,11 @@ CallableReinforcing = Callable[
     bool
 ]
 
-class CommunitiesAndMembers():
-    communities: int
-    members: int
-
-    def __init__(self, communities, members):
-        self.communities = communities
-        self.members = members
-
 class VerboseECInfo(NamedTuple):
-    ec: CommunitiesAndMembers
-    eclist: list[set[int]]
-    homogeneity: CommunitiesAndMembers
-    segregation: CommunitiesAndMembers
-    reinforcement: CommunitiesAndMembers
-
-def initVECI() -> VerboseECInfo:
-    return VerboseECInfo(
-        CommunitiesAndMembers(0, 0),
-        [],
-        CommunitiesAndMembers(0, 0),
-        CommunitiesAndMembers(0, 0),
-        CommunitiesAndMembers(0, 0),
-    )
+    ec: list[set[int]]
+    homogeneity: list[set[int]]
+    segregation: list[set[int]]
+    reinforcement: list[set[int]]
 
 def eo_raw(
     time: int,
@@ -62,22 +44,19 @@ def eo_raw(
     ## Otherwise, other information can be obtained (see `VerboseECInfo`).
     G = get_network_at_t(time)
     opinions = get_opinions_at_t(time)
-    info = initVECI()
+    info = VerboseECInfo([], [], [], [])
     for community in get_communities(G):
         is_ec = True
-        members = len(community)
 
         # Homogeneity
         if is_homogeneous(mo(community, opinions)):
-            info.homogeneity.communities += 1
-            info.homogeneity.members += members
+            info.homogeneity.append(community)
         else:
             is_ec = False
 
         # Segregation
         if is_segregated(segregation(G, community)):
-            info.segregation.communities += 1
-            info.segregation.members += members
+            info.segregation.append(community)
         else:
             is_ec = False
 
@@ -90,21 +69,18 @@ def eo_raw(
             mo=mo,
             get_communities=get_communities,
         ):
-            info.reinforcement.communities += 1
-            info.reinforcement.members += members
+            info.reinforcement.append(community)
         else:
             is_ec = False
 
         # If `community` is an echo chamber, incement `ecs`
         if is_ec:
-            info.ec.communities += 1
-            info.ec.members += members
-            info.eclist.append(community)
+            info.ec.append(community)
     
     if verbose:
         return info
     else:
-        return info.ec.communities
+        return len(info.ec)
 
 def eb_raw(
     time: int,
@@ -122,22 +98,19 @@ def eb_raw(
     ## Belief echo chamber measures (customizable version).
     G = get_network_at_t(time)
     beliefs = get_belief_at_t(time)
-    info = initVECI()
+    info = VerboseECInfo([], [], [], [])
     for community in get_communities(G):
         is_ec = True
-        members = len(community)
 
         # Homogeneity
         if is_homogeneous(mb(community, beliefs)):
-            info.homogeneity.communities += 1
-            info.homogeneity.members += members
+            info.homogeneity.append(community)
         else:
             is_ec = False          
 
         # Segregation
         if is_segregated(segregation(G, community)):
-            info.segregation.communities += 1
-            info.segregation.members += members
+            info.segregation.append(community)
         else:
             is_ec = False            
 
@@ -150,21 +123,18 @@ def eb_raw(
             mb=mb,
             get_communities=get_communities,
         ):
-            info.reinforcement.communities += 1
-            info.reinforcement.members += members
+            info.reinforcement.append(community)
         else:
             is_ec = False
 
         # If `community` is an echo chamber, incement `ecs`
         if is_ec:
-            info.ec.communities += 1
-            info.ec.members += members
-            info.eclist.append(community)
+            info.ec.append(community)
 
     if verbose:
         return info
     else:
-        return info.ec.communities
+        return len(info.ec)
 
 def eo(
     time: int, 
