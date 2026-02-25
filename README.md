@@ -1,7 +1,7 @@
 # ecmeasure
 Echo chamber measures implemented by Python proposed in the paper Kataoka et al. (2026):
 
-- Hiro Kataoka, Jérôme Euzenat, and Koji Hasebe. Coherent belief and opinion propagation produces more echo chambers. AAMAS 2026, 9 pages, May 2026. [Link to the paper will be made available upon publications]
+- Hiro Kataoka, Jérôme Euzenat, and Koji Hasebe. Coherent belief and opinion propagation produces more echo chambers. AAMAS 2026, 9 pages, May 2026. DOI: [10.65109/PQIV4263](https://doi.org/10.65109/PQIV4263)
 
 ## Overview of the measure
 For details, please read the corresponding paper.
@@ -44,3 +44,7 @@ $ uv run pytest tests/*.py
 
 ## License
 MIT
+
+## Author
+Hiro KATAOKA (University of Tsukuba)
+
