@@ -22,7 +22,7 @@ In most of the cases, they are enough.
 For their interface, see the source code.
 
 If you want to customize details (e.g., use the drastic distance instead of the Hamming distance), use `eo_raw` or `eb_raw`.
-These functions are customizable version of `eo` and `eb`.
+These functions are customizable `eo` and `eb`.
 
 ## How to use
 Clone this repository to somewhere (`ecmeasure` for instance) and import them by:
