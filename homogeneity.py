@@ -17,9 +17,10 @@ def max_belief_distance(
 ) -> int:
     ## Return the maximal distance between beliefs within `community`.
     ## The distance between two beliefs can be changed by the optional arument `distance`.
+    beliefs_within_community = {beliefs[a] for a in community}
     max_distance = 0
-    for a in community:
-        for b in community:
-            max_distance = max(max_distance, distance(beliefs[a], beliefs[b]))
+    for b1 in beliefs_within_community:
+        for b2 in beliefs_within_community:
+            max_distance = max(max_distance, distance(b1, b2))
     return max_distance
 
