@@ -3,7 +3,8 @@ from ecmeasure.segregation import ratio_edges_to_outside
 from ecmeasure.reinforcement import is_opinion_getting_closer, is_belief_getting_closer, nx_scc_wrapper
 import networkx as nx
 import pandas as pd
-from typing import Callable, NamedTuple
+from typing import Callable
+from ecmeasure.utils import VerboseECInfo
 
 import mentsuyu
 
@@ -19,12 +20,6 @@ CallableReinforcing = Callable[
     ],
     bool
 ]
-
-class VerboseECInfo(NamedTuple):
-    ec: list[set[int]]
-    homogeneity: list[set[int]]
-    segregation: list[set[int]]
-    reinforcement: list[set[int]]
 
 def eo_raw(
     time: int,
