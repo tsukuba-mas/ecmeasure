@@ -16,7 +16,16 @@ Each of the features and the measure itself are defined in separate files:
 - **Reinforcement** is tested by functions in `reinforcemenet.py`;
 - Finally, the echo chamber measures $eo^t$ and $eb^t$ are provided in `ecmeasures.py`.
 
-## Interface
+The improved version is available in `optecmeasures.py`.
+In practice, using the function `ec` in this file would be the best: it accepts various network library and provides unified function for opinion/belief echo chambers.
+
+## Interface (for the unified implementation)
+For details see the docstring of the corresponding file.
+Note that the network should be provided as a subclass of `NetworkWrapper`.
+For NetworkX and iGraph, the corresponding subclass is already available (see `templates` directory).
+For other libraries, you need to implement the wrapper class (but this is easy).
+
+## Interface (for the naive implementation)
 In principle, if you want to test the proposed measures, import `ecmeasures.py` and use the functions `eo` and `eb`.
 In most of the cases, they are enough.
 For their interface, see the source code.
