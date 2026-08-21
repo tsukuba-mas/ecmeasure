@@ -3,30 +3,53 @@ from typing import Callable
 import igraph as ig
 
 def ec(
-        tmax: int, 
+        time: int, 
         readgr: Callable[[int], ig.Graph], 
         maxd: Callable[[list[int], int], float], 
         seg_threshold: float, 
         hom_threshold: int | float, 
         shortcut=False, 
         verbose=False
-):
+) -> int | VerboseECInfo:
+    """
+    Unified and optimized echo chamber measure.
+    This function is defined aiming at improving the performance and 
+    unifying the two measures in ecmeasures.py.
+
+    Args:
+        time (int): discrete time specifying when this measure is applied
+        readgr (Callable[[int], ig.Graph]): a function that returns a network at given time
+        maxd (Callable[[list[int], int], float]): a function that returns the maximal distance of
+            an attribute of agents (typically opinions or beliefs) in the first argument 
+            at given time (second one)
+        seg_threshold (float): parameter for the segregation property
+        hom_threshold (float or int): parameter for the homogeneity property
+        shortcut (bool, default: False): if True, skip testing whether a component satisfies
+            all of the properties if it becomes clear that it cannot be an echo chamber.
+            Useful only if you want the list of echo chambers or the number of echo chambers.
+        verbose (bool, default: False): if True, VerboseECInfo is returned;
+            if False, only the number of echo chambers is returned.
+
+    Returns:
+        int: if verbose; 
+        VerboseECInfo: otherwise.
+    """
     components = {}
 
-    # Cache all of the components during the time window [0, tmax]
-    for t in range(tmax+1):
+    # Cache all of the components during the time window [0, time]
+    for t in range(time+1):
         G = readgr(t)
         # components[t] = [set(c) for c in G.as_undirected().community_fastgreedy().as_clustering()]    
         components[t] = [set(c) for c in ig.Graph.components(G, mode='strong')]    
 
-    G = readgr(tmax)
+    G = readgr(time)
     result = VerboseECInfo([], [], [], [])
 
-    for comp in components[tmax]:
+    for comp in components[time]:
         is_ec = True
 
         # Homogeneity
-        nowh = maxd(comp, tmax)
+        nowh = maxd(comp, time)
         if nowh > hom_threshold:
             is_ec = False
             if shortcut:
@@ -46,7 +69,7 @@ def ec(
 
         # Reinforcement
         beforeh = nowh
-        for t in range(tmax-1, -1, -1):
+        for t in range(time-1, -1, -1):
             if comp not in components[t]:
                 break
             nowh = maxd(comp, t)
