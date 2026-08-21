@@ -12,6 +12,32 @@ class NetworkWrapper(ABC):
         super().__init__()
         self.G = G
 
+    def getComponents(self, algorithm) -> list[set[int]]:
+        """
+        Returns the list of components identified by given algorithm.
+
+        Params:
+            algorithm (str): algorithm to be applied.
+                Following options are available: scc (strongly connected components);
+                wcc (weakly connected components);
+                cnm (greedy modularity maximization by Clauset et al. (2004)).
+        
+        Raises:
+            ValueError: if unknown algorithm is passed
+        
+        Returns:
+            list[set[int]]: the list of the components (set of int) identified by 
+                the given algorithm.
+        """
+        if algorithm == 'scc':
+            return self.getSCC()
+        elif algorithm == 'wcc':
+            return self.getWCC()
+        elif algorithm == 'cnm':
+            return self.getCNM()
+        else:
+            raise ValueError(f'Component detection algorithm {algorithm} is not defined')
+
     @abstractmethod
     def getSCC(self) -> list[set[int]]:
         """

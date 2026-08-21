@@ -19,6 +19,7 @@ def test_eo_raw():
         seg_threshold=0.5,
         readgr=lambda t: IGraphWrapper(ig.Graph.from_networkx(get_network_stable(t))),
         maxd=maxd,
+        component='scc',
     ) == 1
 
     info = ec(
@@ -27,6 +28,7 @@ def test_eo_raw():
         seg_threshold=0.5,
         readgr=lambda t: IGraphWrapper(ig.Graph.from_networkx(get_network_stable(t))),
         maxd=maxd,
+        component='scc',
         verbose=True,
     )
     assert info.ec == [{1, 2}]
@@ -37,6 +39,7 @@ def test_eo_raw():
         seg_threshold=0.5,
         readgr=lambda t: NetworkXWrapper(get_network_stable(t)),
         maxd=maxd,
+        component='scc',
         verbose=True,
     )
     assert info.ec == [{1, 2}]
@@ -56,6 +59,7 @@ def test_eb_raw():
         seg_threshold=0.5,
         readgr=lambda t: IGraphWrapper(ig.Graph.from_networkx(get_network_time_change(t))),
         maxd=maxd,
+        component='scc',
     ) == 2
 
     res = ec(
@@ -64,6 +68,7 @@ def test_eb_raw():
         seg_threshold=0.5,
         readgr=lambda t: IGraphWrapper(ig.Graph.from_networkx(get_network_time_change(t))),
         maxd=maxd,
+        component='scc',
         verbose=True,
     ).ec
     expected = [{1, 2}, {3, 4}]
@@ -76,6 +81,7 @@ def test_eb_raw():
         seg_threshold=0.5,
         readgr=lambda t: NetworkXWrapper(get_network_time_change(t)),
         maxd=maxd,
+        component='scc',
         verbose=True,
     ).ec
     expected = [{1, 2}, {3, 4}]

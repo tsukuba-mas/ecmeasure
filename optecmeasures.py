@@ -3,6 +3,7 @@ from typing import Callable
 
 def ec(
         time: int, 
+        component: str,
         readgr: Callable[[int], NetworkWrapper], 
         maxd: Callable[[list[int], int], float], 
         seg_threshold: float, 
@@ -17,6 +18,7 @@ def ec(
 
     Args:
         time (int): discrete time specifying when this measure is applied
+        component (str): string corresponding to component detection algorithm
         readgr (Callable[[int], NetworkWrapper]): a function that returns a network at given time
         maxd (Callable[[list[int], int], float]): a function that returns the maximal distance of
             an attribute of agents (typically opinions or beliefs) in the first argument 
@@ -37,9 +39,8 @@ def ec(
 
     # Cache all of the components during the time window [0, time]
     for t in range(time+1):
-        G = readgr(t)
-        # components[t] = [set(c) for c in G.as_undirected().community_fastgreedy().as_clustering()]    
-        components[t] = G.getSCC()
+        G = readgr(t)   
+        components[t] = G.getComponents(component)
 
     G = readgr(time)
     result = VerboseECInfo([], [], [], [])
